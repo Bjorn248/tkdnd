@@ -1,0 +1,30 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    runs-on: macos-14
+
+    steps:
+      - name: check out git repository
+        uses: actions/checkout@v3.1.0
+        
+      - name: build
+        run: |
+          brew reinstall tcl-tk
+          export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
+          export LDFLAGS="-L/usr/local/opt/tcl-tk/lib"
+          export CPPFLAGS="-I/usr/local/opt/tcl-tk/include"
+          export PKG_CONFIG_PATH="/usr/local/opt/tcl-tk/lib/pkgconfig"
+          tclsh tcl-conf-new
+          make install arch=arm64
+          
+      - name: upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: arm64
+          path: cmake/runtime/lib/tkdnd2.9.4
