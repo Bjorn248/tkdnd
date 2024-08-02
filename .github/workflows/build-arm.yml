@@ -20,7 +20,7 @@ jobs:
           export LDFLAGS="-L/usr/local/opt/tcl-tk/lib"
           export CPPFLAGS="-I/usr/local/opt/tcl-tk/include"
           export PKG_CONFIG_PATH="/usr/local/opt/tcl-tk/lib/pkgconfig"
-          tclsh tcl-conf
+          tclsh tcl-conf-arm
           make install arch=arm64
           
       - name: upload
