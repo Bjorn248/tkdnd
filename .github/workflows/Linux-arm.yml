@@ -20,7 +20,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y tcl tcl-dev tk tk-dev
-          
+
       - name: Install Miniconda
         uses: conda-incubator/setup-miniconda@v2
         with:
@@ -34,6 +34,13 @@ jobs:
           echo "source $(conda info --base)/etc/profile.d/conda.sh" >> ~/.bashrc
           source ~/.bashrc
 
+      - name: Verify Tk and Tcl Installation
+        run: |
+          echo "Verifying Tk installation..."
+          find $(conda info --base)/envs/build-env/include -name 'tkInt.h'
+          echo "Verifying Tcl installation..."
+          find $(conda info --base)/envs/build-env/include -name 'tcl.h'
+
       - name: Build
         run: |
           source $(conda info --base)/etc/profile.d/conda.sh
@@ -44,7 +51,7 @@ jobs:
           export PKG_CONFIG_PATH="$CONDA_PREFIX/lib/pkgconfig"
           tclsh tcl-conf-arm
           make install arch=arm64
-          
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4.3.5
         with:
