@@ -8,16 +8,15 @@ on:
         required: true
         default: 'warning'
 
-
 jobs:
   release:
     runs-on: ubuntu-latest
 
     steps:
-      - name: check out git repository
+      - name: Check out git repository
         uses: actions/checkout@v4
         
-      - name: install dependencies
+      - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y tcl tcl-dev tk tk-dev
@@ -32,16 +31,16 @@ jobs:
           conda config --add channels conda-forge
           conda create -n build-env -y conda-forge::tk
           conda init
-
-
+          . ~/miniconda/etc/profile.d/conda.sh
 
       - name: Build
         run: |
+          . ~/miniconda/etc/profile.d/conda.sh
           conda activate build-env
           export PATH="/usr/bin/tclsh:$PATH"
-          export LDFLAGS="-L/usr/share/miniconda/envs/build-env/lib"
-          export CPPFLAGS="-I/usr/share/miniconda/envs/build-env/include"
-          export PKG_CONFIG_PATH="/usr/share/miniconda/envs/build-env/lib/pkgconfig"
+          export LDFLAGS="-L$CONDA_PREFIX/lib"
+          export CPPFLAGS="-I$CONDA_PREFIX/include"
+          export PKG_CONFIG_PATH="$CONDA_PREFIX/lib/pkgconfig"
           tclsh tcl-conf-arm
           make install arch=arm64
           
