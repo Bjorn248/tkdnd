@@ -31,6 +31,7 @@ jobs:
         run: |
           conda config --add channels conda-forge
           conda create -n build-env -y conda-forge::tk
+          conda init
           conda activate build-env
 
       - name: Build
