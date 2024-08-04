@@ -30,12 +30,12 @@ jobs:
         run: |
           conda config --add channels conda-forge
           conda create -n build-env -y conda-forge::tk
-          conda init
-          . ~/miniconda/etc/profile.d/conda.sh
+          conda init bash
+          source ~/.bashrc
 
       - name: Build
         run: |
-          . ~/miniconda/etc/profile.d/conda.sh
+          source /usr/share/miniconda/etc/profile.d/conda.sh
           conda activate build-env
           export PATH="/usr/bin/tclsh:$PATH"
           export LDFLAGS="-L$CONDA_PREFIX/lib"
