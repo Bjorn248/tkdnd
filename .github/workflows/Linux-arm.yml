@@ -29,9 +29,9 @@ jobs:
 
       - name: Set up Conda environment
         run: |
-          conda create -n build-env tcl tk
-          conda activate build-env
-          conda install conda-forge::tk
+          conda config --add channels conda-forge
+          conda create -n build-env -y conda-forge::tk
+          source ~/miniconda/bin/activate build-env
 
       - name: Build
         run: |
