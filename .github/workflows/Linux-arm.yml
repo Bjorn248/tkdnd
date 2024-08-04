@@ -31,12 +31,13 @@ jobs:
         run: |
           conda config --add channels conda-forge
           conda create -n build-env -y conda-forge::tk
-          conda activate build-env
           conda init
+
 
 
       - name: Build
         run: |
+          conda activate build-env
           export PATH="/usr/bin/tclsh:$PATH"
           export LDFLAGS="-L/usr/share/miniconda/envs/build-env/lib"
           export CPPFLAGS="-I/usr/share/miniconda/envs/build-env/include"
