@@ -1,0 +1,34 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: check out git repository
+        uses: actions/checkout@v4
+        
+      - name: install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tcl tcl-dev tk tk-dev
+
+      - name: build
+        run: |
+          export PATH="/usr/bin/tclsh:$PATH"
+          export LDFLAGS="-L/usr/lib"
+          export CPPFLAGS="-I/usr/include"
+          export PKG_CONFIG_PATH="/usr/lib/pkgconfig"
+          tclsh tcl-conf-arm
+          make install arch=arm64
+          
+      - name: upload
+        uses: actions/upload-artifact@v4.3.5
+        with:
+          name: Linux-arm64
+          path: cmake/runtime/lib/tkdnd2.9.4
