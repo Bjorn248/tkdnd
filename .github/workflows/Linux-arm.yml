@@ -31,7 +31,7 @@ jobs:
         run: |
           conda create -n build-env tcl tk
           conda activate build-env
-          conda install -c conda-forge tcl tk
+          conda install conda-forge::tk
 
       - name: Build
         run: |
