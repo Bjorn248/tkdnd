@@ -23,8 +23,8 @@ jobs:
 
       - name: Download and install Tk from source
         run: |
-          TK_VERSION="8.6.12" # Replace with the desired version
-          DOWNLOAD_URL="https://www.irontcl.com/downloads/irontcl-linux-x86_64-${TK_VERSION}.zip"
+          TK_VERSION="8.6.7" # Replace with the desired version
+          DOWNLOAD_URL="https://www.irontcl.com/downloads/irontcl-amd64-8.6.7.zip"
           INSTALL_DIR="/usr/local/tk"
           wget $DOWNLOAD_URL -O tk.zip
           unzip tk.zip
