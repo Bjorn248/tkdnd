@@ -22,16 +22,28 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y tcl tcl-dev tk tk-dev
           
-      - name: build
+      - name: Install Miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          python-version: 3.8
+
+      - name: Set up Conda environment
         run: |
+          conda create -n build-env tcl tk
+          conda activate build-env
+          conda install -c conda-forge tcl tk
+
+      - name: Build
+        run: |
+          source ~/conda/bin/activate build-env
           export PATH="/usr/bin/tclsh:$PATH"
-          export LDFLAGS="-L/usr/lib"
-          export CPPFLAGS="-I/usr/include"
-          export PKG_CONFIG_PATH="/usr/lib/pkgconfig"
+          export LDFLAGS="-L/usr/share/miniconda/envs/build-env/lib"
+          export CPPFLAGS="-I/usr/share/miniconda/envs/build-env/include"
+          export PKG_CONFIG_PATH="/usr/share/miniconda/envs/build-env/lib/pkgconfig"
           tclsh tcl-conf-arm
           make install arch=arm64
           
-      - name: upload
+      - name: Upload artifact
         uses: actions/upload-artifact@v4.3.5
         with:
           name: linux-arm64
