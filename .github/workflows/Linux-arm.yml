@@ -8,6 +8,7 @@ on:
         required: true
         default: 'warning'
 
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -20,19 +21,18 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y tcl tcl-dev tk tk-dev
-
+          
       - name: build
         run: |
           export PATH="/usr/bin/tclsh:$PATH"
           export LDFLAGS="-L/usr/lib"
           export CPPFLAGS="-I/usr/include"
           export PKG_CONFIG_PATH="/usr/lib/pkgconfig"
-          tclsh tcl-conf
-          cmake -E make_directory "build"
-          cd build && cmake -G %CMAKE_GENERATOR% -DTCL_TCLSH=%TCL_TCLSH% -DTK_WISH=%TK_WISH% -DCMAKE_INSTALL_PREFIX=runtime -D PKG_OS_ARCH=x86_64
+          tclsh tcl-conf-arm
+          make install arch=arm64
           
       - name: upload
         uses: actions/upload-artifact@v4.3.5
         with:
-          name: Linux-arm64
+          name: linux-arm64
           path: cmake/runtime/lib/tkdnd2.9.4
