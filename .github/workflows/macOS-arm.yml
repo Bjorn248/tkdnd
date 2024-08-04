@@ -1,4 +1,4 @@
-name: Build
+name: macOS-arm-build
 
 on:
   push:
@@ -26,5 +26,5 @@ jobs:
       - name: upload
         uses: actions/upload-artifact@v4.3.5
         with:
-          name: arm64
+          name: macos-arm64
           path: cmake/runtime/lib/tkdnd2.9.4
