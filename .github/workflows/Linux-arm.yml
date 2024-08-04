@@ -1,4 +1,4 @@
-name: Build
+name: linux-arm-64
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
           export LDFLAGS="-L/usr/lib"
           export CPPFLAGS="-I/usr/include"
           export PKG_CONFIG_PATH="/usr/lib/pkgconfig"
-          tclsh tcl-conf-arm
+          tclsh tcl-conf
           make install arch=arm64
           
       - name: upload
