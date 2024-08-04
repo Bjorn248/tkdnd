@@ -15,40 +15,30 @@ jobs:
     steps:
       - name: Check out git repository
         uses: actions/checkout@v4
-        
+
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y tcl tcl-dev tk tk-dev
+          sudo apt-get install -y tcl tcl-dev tk tk-dev build-essential wget unzip
 
-      - name: Install Miniconda
-        uses: conda-incubator/setup-miniconda@v2
-        with:
-          python-version: 3.8
-
-      - name: Set up Conda environment
+      - name: Download and install Tk from source
         run: |
-          conda config --add channels conda-forge
-          conda create -n build-env -y conda-forge::tk
-          conda init bash
-          echo "source $(conda info --base)/etc/profile.d/conda.sh" >> ~/.bashrc
-          source ~/.bashrc
-
-      - name: Verify Tk and Tcl Installation
-        run: |
-          echo "Verifying Tk installation..."
-          find $(conda info --base)/envs/build-env/include -name 'tkInt.h'
-          echo "Verifying Tcl installation..."
-          find $(conda info --base)/envs/build-env/include -name 'tcl.h'
+          TK_VERSION="8.6.12" # Replace with the desired version
+          DOWNLOAD_URL="https://www.irontcl.com/downloads/irontcl-linux-x86_64-${TK_VERSION}.zip"
+          INSTALL_DIR="/usr/local/tk"
+          wget $DOWNLOAD_URL -O tk.zip
+          unzip tk.zip
+          cd irontcl-${TK_VERSION}
+          ./configure --prefix=${INSTALL_DIR}
+          make
+          sudo make install
 
       - name: Build
         run: |
-          source $(conda info --base)/etc/profile.d/conda.sh
-          conda activate build-env
           export PATH="/usr/bin/tclsh:$PATH"
-          export LDFLAGS="-L$CONDA_PREFIX/lib"
-          export CPPFLAGS="-I$CONDA_PREFIX/include"
-          export PKG_CONFIG_PATH="$CONDA_PREFIX/lib/pkgconfig"
+          export LDFLAGS="-L/usr/local/tk/lib"
+          export CPPFLAGS="-I/usr/local/tk/include"
+          export PKG_CONFIG_PATH="/usr/local/tk/lib/pkgconfig"
           tclsh tcl-conf-arm
           make install arch=arm64
 
