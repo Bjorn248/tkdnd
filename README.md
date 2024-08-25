@@ -11,7 +11,7 @@ It can be used with any Tk version equal or greater to **8.4** and currently onl
 | Windows, x86, x86-64, Tcl/Tk 8.6 | [![Build status](https://ci.appveyor.com/api/projects/status/vfnx40w79dqsox1y/branch/master?svg=true)](https://ci.appveyor.com/project/petasis/tkdnd/branch/master) |
 | macOS: macOS 10.13, x86-64, Tcl/Tk 8.5 | [![Build Status](https://app.travis-ci.com/petasis/tkdnd.svg?branch=master)](https://app.travis-ci.com/github/petasis/tkdnd) |
 | macOS: macOS 12.6, x86-64, Tcl/Tk 8.6 (Homebrew) | [![Build Status](https://app.travis-ci.com/petasis/tkdnd.svg?branch=master)](https://app.travis-ci.com/github/petasis/tkdnd) |
-| macOS: macOS 14, ARM, Tcl/Tk (HomeBrew) | [![Build](https://github.com/Squiblydoo/tkdnd/actions/workflows/build-arm.yml/badge.svg)](https://github.com/Squiblydoo/tkdnd/actions/workflows/build-arm.yml)
+| macOS: macOS 14, ARM, Tcl/Tk (HomeBrew) | [![Build Status](https://github.com/Squiblydoo/tkdnd/actions/workflows/macOS-arm.yml/badge.svg)](https://github.com/Squiblydoo/tkdnd/actions/workflows/macOS-arm.yml)
 
 
 ## Installation
