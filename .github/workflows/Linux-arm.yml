@@ -21,18 +21,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y tcl tcl-dev tk tk-dev build-essential wget unzip
 
-      - name: Download and install Tk from source
-        run: |
-          make
-          sudo make install
-          sudo apt-get install -y tcl tcl-dev tk tk-dev build-essential wget unzip tcllib tcllib-critcl libxcursor-dev
-
       - name: Build
         run: |
-          export PATH="/usr/bin/tclsh:$PATH"
-          export LDFLAGS="-L/usr/local/tk/lib"
-          export CPPFLAGS="-I/usr/local/tk/include"
-          export PKG_CONFIG_PATH="/usr/local/tk/lib/pkgconfig"
           tclsh tcl-conf
           make install
 
