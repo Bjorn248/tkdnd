@@ -19,11 +19,11 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y tcl tcl-dev tk tk-dev build-essential wget unzip
+          sudo apt-get install -y tcl tcl-dev tk tk-dev build-essential wget unzip tcllib tcllib-critcl libxcursor-dev
 
       - name: Build
         run: |
-          tclsh tcl-conf
+          tclsh tcl-conf-arm
           make install
 
       - name: Upload artifact
