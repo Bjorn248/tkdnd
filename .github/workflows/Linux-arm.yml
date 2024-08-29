@@ -10,7 +10,7 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-arm (pending availability)
 
     steps:
       - name: Check out git repository
@@ -29,5 +29,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4.3.5
         with:
-          name: linux-x86
+          name: linux-arm
           path: cmake/runtime/lib/tkdnd2.9.4
