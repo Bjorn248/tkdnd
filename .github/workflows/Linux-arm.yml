@@ -23,13 +23,6 @@ jobs:
 
       - name: Download and install Tk from source
         run: |
-          TK_VERSION="8.6.7" # Replace with the desired version
-          DOWNLOAD_URL="https://www.irontcl.com/downloads/irontcl-amd64-8.6.7.zip"
-          INSTALL_DIR="/usr/local/tk"
-          wget $DOWNLOAD_URL -O tk.zip
-          unzip tk.zip
-          cd irontcl-${TK_VERSION}
-          ./configure --prefix=${INSTALL_DIR}
           make
           sudo make install
           sudo apt-get install -y tcl tcl-dev tk tk-dev build-essential wget unzip tcllib tcllib-critcl libxcursor-dev
