@@ -6,13 +6,15 @@ set srcdir [file dirname [file normalize [info script]]]
 
 puts "TkDND sources: $srcdir"
 
-set libpath     [file dirname [file normalize [info library]]]
+# set libpath     [file dirname [file normalize [info library]]]
+set libpath     "/usr/lib/tcl8.6"
 set root        [file dirname $libpath]
-set tcl_includepath $root/include
-set tk_includepath  $root/include
+set tcl_includepath "/usr/include/tcl"
+set tk_includepath  "/usr/include/tcl"
 set tcl_libpath $libpath
 set tk_libpath  $libpath
 set tk_includepath_int $tk_includepath
+set x11_x11_lib "/usr/include/X11/Xcursor/Xcursor.h"
 catch {file delete -force config.cache}
 
 puts "ROOT: $root"
@@ -136,6 +138,8 @@ if {$tk_includepath_int ne $tk_includepath} {
       \                 --with-tk=$tk_libpath\n\
       \                 --with-tclinclude=$tcl_includepath\n\
       \                 --with-tkinclude=$tk_includepath\n\
+      \                 --build x86_64-pc-linux-gnu\n\
+      \                 --host aarch64-linux-gnu\n\
       \                 PKG_INCLUDES=-I\"$tk_includepath_int\"\n\
       \                 $bits'\n\
       \            in directory [pwd]..."
@@ -144,6 +148,8 @@ if {$tk_includepath_int ne $tk_includepath} {
             --with-tcl=$tcl_libpath --with-tk=$tk_libpath \
             --with-tclinclude=$tcl_includepath \
             --with-tkinclude=$tk_includepath \
+            --build "x86_64-pc-linux-gnu" \
+            --host "aarch64-linux-gnu" \
             PKG_INCLUDES=-I"$tk_includepath_int" \
             $bits >@stdout 2>@stderr}
 } else {
@@ -154,6 +160,8 @@ if {$tk_includepath_int ne $tk_includepath} {
       \                 --with-tk=$tk_libpath\n\
       \                 --with-tclinclude=$tcl_includepath\n\
       \                 --with-tkinclude=$tk_includepath\n\
+      \                 --build x86_64-pc-linux-gnu\n\
+      \                 --host aarch64-linux-gnu\n\
       \                 $bits'\n\
       \            in directory [pwd]..."
   catch {exec bash configure -srcdir=$srcdir --prefix=$srcdir/cmake/runtime \
@@ -161,6 +169,8 @@ if {$tk_includepath_int ne $tk_includepath} {
             --with-tcl=$tcl_libpath --with-tk=$tk_libpath \
             --with-tclinclude=$tcl_includepath \
             --with-tkinclude=$tk_includepath \
+            --build "x86_64-pc-linux-gnu" \
+            --host "aarch64-linux-gnu" \
             $bits >@stdout 2>@stderr}
 }
 exit 0

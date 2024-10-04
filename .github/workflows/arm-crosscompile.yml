@@ -19,20 +19,12 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y tcl tcl-dev tk tk-dev build-essential wget unzip tcllib tcllib-critcl libxcursor-dev gcc make gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu g++-14-aarch64-linux-gnu
+          sudo apt-get install -y tcl tcl-dev tk tk-dev build-essential wget unzip tcllib tcllib-critcl libxcursor-dev gcc make gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu g++-aarch64-linux-gnu
 
       - name: Build
         run: |
-          cd make
-          mkdir debug-nmake-aarch64
-          cd debug-nmake-aarch64
-          cmake -G "Unix Makefiles" -D CMAKE_BUILD_TYPE=Debug -D PKG_OS_ARCH=aarch64 -D CMAKE_INSTALL_PREFIX=../runtime -D CMAKE_SYSTEM_PROCESSOR=aarch64 -D CMAKE_C_COMPILER=/usr/bin/aarch64-linux-gnu-gcc-14 -D CMAKE_CXX_COMPILER="/usr/bin/aarch64-linux-gnu-g++-14" -D CMAKE_FIND_ROOT_PATH=/usr/aarch64-linux-gnu -D CMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER -D TCL_LIBRARY=/usr/lib/tcl8.6 -D X11_X11_LIB=/usr/lib/X11 -D TK_LIBRARY=/usr/include/tcl8.6 -D TK_STUB_LIBRARY="/usr/lib/x86_64-linux-gnu" -D TCL_STUB_LIBRARY="/usr/lib/x86_64-linux-gnu" ../..
-          cd ..
-          mkdir release-nmake-aarch64
-          cd release-nmake-aarch64
-          cmake -G "Unix Makefiles" -D CMAKE_BUILD_TYPE=Release -D PKG_OS_ARCH=aarch64 -D CMAKE_INSTALL_PREFIX=../runtime -D CMAKE_SYSTEM_PROCESSOR=aarch64 -D CMAKE_C_COMPILER=/usr/bin/aarch64-linux-gnu-gcc-14 -D CMAKE_CXX_COMPILER="/usr/bin/aarch64-linux-gnu-g++-14" -D CMAKE_FIND_ROOT_PATH=/usr/aarch64-linux-gnu -D CMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER -D TCL_LIBRARY=/usr/lib/tcl8.6 -D X11_X11_LIB=/usr/lib/X11 -D TK_LIBRARY=/usr/include/tcl8.6 -D TK_STUB_LIBRARY="/usr/lib/x86_64-linux-gnu" -D TCL_STUB_LIBRARY="/usr/lib/x86_64-linux-gnu" ../..
-          make install
-          
+          cd cmake
+          bash buildarm64.sh
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4.3.5

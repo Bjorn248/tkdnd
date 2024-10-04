@@ -3,8 +3,8 @@ config.status
 pkgIndex.tcl
 Makefile
 autom4te.cache
-cmake/debug-nmake-x86_64/
-cmake/release-nmake-x86_64/
+cmake/debug-nmake-*
+cmake/release-nmake-*
 cmake/runtime/
 *.o
 *.so
