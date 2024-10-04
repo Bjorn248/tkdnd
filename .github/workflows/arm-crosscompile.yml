@@ -13,6 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: "arm64"
+
       - name: Check out git repository
         uses: actions/checkout@v4
 
@@ -25,6 +30,8 @@ jobs:
         run: |
           cd cmake
           bash buildarm64.sh
+          cd release-nmake-aarch64
+          make install
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4.3.5
